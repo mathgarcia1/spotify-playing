@@ -23,10 +23,10 @@
           padding: 10px 10px 10px 0px;
           background: linear-gradient(
             90deg,
-            rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.25) 0%,
-            rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.25) 100%
+            rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.25),
+            rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.25)
           );
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.25);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
         }
@@ -41,30 +41,38 @@
           width: 71%;
         }
 
-        .song {
-          width: 330px;
-          font-size: 24px;
-          font-weight: 600;
-          color: #fff;
+        .song, .artist {
+          position: relative;
           text-align: center;
-          margin-top: 5px;
-          text-shadow: 0px 0px 6px rgba(0,0,0,0.5);
+          width: 330px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+          font-weight: 600;
+          z-index: 1;
+        }
+
+        .song::before, .artist::before {
+          content: attr(data-text);
+          position: absolute;
+          left: 0;
+          width: 100%;
+          filter: blur(6px);
+          opacity: 0.5;
+          z-index: -1;
+        }
+
+        .song {
+          font-size: 24px;
+          margin-top: 5px;
+          color: white;
         }
 
         .artist {
-          width: 330px;
           font-size: 20px;
-          color: #ddd;
-          text-align: center;
+          color: #dddddd;
           margin-top: 4px;
           margin-bottom: 5px;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          text-shadow: 0px 0px 4px rgba(0,0,0,0.4);
         }
 
         .cover {
@@ -74,14 +82,15 @@
         }
 
         #bars {
-          position: absolute;
           margin-top: 5px;
+          position: relative;
         }
 
         .bar {
           width: 3px;
           height: 15px;
           position: absolute;
+          bottom: 0;
           background: linear-gradient(
             90deg,
             rgb({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}) 0%,
@@ -116,8 +125,12 @@
           <center><img src="data:image/png;base64, {{ image }}" class="cover" /></center>
         </a>
         <div class="content">
-          <a href="{{ songURI }}" target="_blank"><div class="song">{{ songName }}</div></a>
-          <a href="{{ artistURI }}" target="_blank"><div class="artist">{{ artistName }}</div></a>
+          <a href="{{ songURI }}" target="_blank">
+            <div class="song" data-text="{{ songName }}">{{ songName }}</div>
+          </a>
+          <a href="{{ artistURI }}" target="_blank">
+            <div class="artist" data-text="{{ artistName }}">{{ artistName }}</div>
+          </a>
           <div id="bars">{{ contentBar|safe }}</div>
         </div>
       </div>
