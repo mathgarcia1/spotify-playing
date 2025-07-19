@@ -27,11 +27,7 @@ Alterações principais:
         .container {
           border-radius: 18px;
           padding: 10px 10px 10px 0px;
-          background: linear-gradient(
-            90deg,
-            rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.28) 0%,
-            rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.28) 100%
-          );
+          background: rgb({{ songPalette[0][2] }}, {{ songPalette[0][1] }}, {{ songPalette[0][0] }});
           /* contorno translúcido + leve blur na borda */
           border: 1px solid rgba(255,255,255,0.15);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
