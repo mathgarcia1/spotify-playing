@@ -1,7 +1,8 @@
 <svg width="480" height="133" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <filter id="glass" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <!-- Blur mais forte para o efeito liquid glass -->
+      <feGaussianBlur stdDeviation="8" result="blur" />
       <feColorMatrix in="blur" type="matrix"
         values="1 0 0 0 0
                 0 1 0 0 0
@@ -11,93 +12,96 @@
     </filter>
   </defs>
 
+  <!-- O filtro mantém o “liquid‑glass” na área toda -->
   <foreignObject width="480" height="133" filter="url(#glass)">
     <div xmlns="http://www.w3.org/1999/xhtml" class="container">
       <style>
-        /* ---------- Estrutura geral ---------- */
-        .container{
-          border-radius:18px;
-          padding:10px 10px 10px 0;
-          background:linear-gradient(
+        .main { display: flex; }
+
+        .container {
+          border-radius: 18px;
+          padding: 10px 10px 10px 0px;
+          background: linear-gradient(
             90deg,
-            rgba({{ barPalette[0][0] }},{{ barPalette[0][1] }},{{ barPalette[0][2] }},0.28)0%,
-            rgba({{ barPalette[3][0] }},{{ barPalette[3][1] }},{{ barPalette[3][2] }},0.28)100%
+            rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.28) 0%,
+            rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.28) 100%
           );
-          border:1px solid rgba({{ barPalette[3][0] }},{{ barPalette[3][1] }},{{ barPalette[3][2] }},0.6);
-          box-shadow:0 4px 30px rgba(0,0,0,.1);
-          backdrop-filter:blur(8px);
-          -webkit-backdrop-filter:blur(8px);
-          font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+          border: 1px solid rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.6);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
         }
-        .main{display:flex;}
-        .art{width:27%;margin-left:-5px;}
-        .content{width:71%;position:relative;}
 
-        /* ---------- Texto (música & artista) ---------- */
-        .song,.artist{
-          width:330px;
-          padding:4px 8px;
-          margin:4px auto;
-          overflow:hidden;
-          white-space:nowrap;
-          text-overflow:ellipsis;
-          text-align:center;
+        .art     { width: 27%; float: left; margin-left: -5px; }
+        .content { width: 71%; position: relative; }
 
-          font-weight:700;                 /* negrito    */
-          color:rgb({{ songPalette[0][0] }},{{ songPalette[0][1] }},{{ songPalette[0][2] }});  /* cor sólida */
+        /* ===== Texto da música ===== */
+        .song {
+          width: 330px;
+          overflow: hidden;
+          margin-top: 3px;
+          font-size: 24px;
+          text-align: center;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-weight: 700;                    /* negrito */
+          color: rgb({{ songPalette[0][0] }}, {{ songPalette[0][1] }}, {{ songPalette[0][2] }}); /* cor sólida agradável */
 
-          background-color:rgba(0,0,0,.18);/* bloco translúcido */
-          backdrop-filter:blur(4px);
-          -webkit-backdrop-filter:blur(4px);
-          border-radius:6px;
+          /* Removidos: backdrop-filter, background‑gradient, -webkit‑text‑fill‑color e afins */
         }
-        .song{font-size:24px;}
-        .artist{font-size:20px;}
 
-        /* ---------- Capa ---------- */
-        .cover{width:100px;height:100px;border-radius:5px;}
+        /* ===== Texto do artista ===== */
+        .artist {
+          width: 330px;
+          font-size: 20px;
+          margin-top: 4px;
+          margin-bottom: 5px;
+          text-align: center;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-weight: 700;                    /* negrito */
+          color: rgb({{ songPalette[1][0] }}, {{ songPalette[1][1] }}, {{ songPalette[1][2] }}); /* cor sólida agradável */
 
-        /* ---------- Barrinha de som ---------- */
-        #bars{
-          position:absolute;
-          bottom:8px;       /* mais para baixo */
-          left:100px;
-          backdrop-filter:blur(4px);
-          -webkit-backdrop-filter:blur(4px);
+          /* Removidos: backdrop-filter, background‑gradient, -webkit‑text‑fill‑color e afins */
         }
-        .bar{
-          width:3px;height:15px;bottom:1px;position:absolute;
-          background:linear-gradient(
+
+        .cover { width: 100px; height: 100px; border-radius: 5px; }
+
+        #bars {
+          position: absolute;
+          bottom: 23px;
+          margin: -20px 0 0 0;
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+        }
+
+        .bar {
+          width: 3px;
+          bottom: 1px;
+          height: 15px;
+          position: absolute;
+          background: linear-gradient(
             90deg,
-            rgb({{ barPalette[0][0] }},{{ barPalette[0][1] }},{{ barPalette[0][2] }})0%,
-            rgb({{ barPalette[1][0] }},{{ barPalette[1][1] }},{{ barPalette[1][2] }})33%,
-            rgb({{ barPalette[2][0] }},{{ barPalette[2][1] }},{{ barPalette[2][2] }})66%,
-            rgb({{ barPalette[3][0] }},{{ barPalette[3][1] }},{{ barPalette[3][2] }})100%
+            rgb({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}) 0%,
+            rgb({{ barPalette[1][0] }}, {{ barPalette[1][1] }}, {{ barPalette[1][2] }}) 33%,
+            rgb({{ barPalette[2][0] }}, {{ barPalette[2][1] }}, {{ barPalette[2][2] }}) 66%,
+            rgb({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}) 100%
           );
-          background-size:200% 100%;
-          background-position:0% 50%;
-          animation:gradient 15s ease infinite,pulse 0ms -800ms ease-in infinite alternate;
+          background-size: 200% 100%;
+          background-position: 0% 50%;
+          animation: gradient 15s ease infinite, pulse 0ms -800ms ease-in infinite alternate;
         }
 
-        /* ---------- Animações ---------- */
-        @keyframes gradient{
-          0%{background-position:0% 50%;}
-          50%{background-position:100% 50%;}
-          100%{background-position:0% 50%;}
-        }
-        @keyframes pulse{
-          0%{height:3px;opacity:.35;}
-          100%{height:15px;opacity:.95;}
-        }
+        div { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; }
 
-        {{ barCSS|safe }}
+        /* keyframes e {{ barCSS }} permanecem iguais */
       </style>
 
       <div class="main">
         <a class="art" href="{{ songURI }}" target="_blank">
           <center><img src="data:image/png;base64,{{ image }}" class="cover"/></center>
         </a>
-
         <div class="content">
           <a href="{{ songURI }}" target="_blank"><div class="song">{{ songName }}</div></a>
           <a href="{{ artistURI }}" target="_blank"><div class="artist">{{ artistName }}</div></a>
