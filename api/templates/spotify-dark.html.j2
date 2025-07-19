@@ -15,13 +15,12 @@
   <foreignObject width="480" height="133" filter="url(#glass)">
     <div xmlns="http://www.w3.org/1999/xhtml" class="container">
       <style>
-        .main {
-          display: flex;
-        }
+        /* Fonte mais “descolada” e títulos em negrito */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
         .container {
           border-radius: 18px;
-          padding: 10px 10px 10px 0px;
+          padding: 10px 10px 10px 0;
           background: linear-gradient(
             90deg,
             rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.28) 0%,
@@ -29,14 +28,17 @@
           );
           border: 1px solid rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.6);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-          /* Aumento do blur de fundo para 8px */
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
+          font-family: 'Poppins', sans-serif;
+        }
+
+        .main {
+          display: flex;
         }
 
         .art {
           width: 27%;
-          float: left;
           margin-left: -5px;
         }
 
@@ -45,18 +47,28 @@
           position: relative;
         }
 
-        .song {
+        .song,
+        .artist {
           width: 330px;
-          overflow: hidden;
-          margin-top: 3px;
-          font-size: 24px;
+          padding: 4px 8px;
+          margin: 4px auto;
           text-align: center;
+          overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-          /* fundo semitransparente + blur leve atrás do texto */
-          background-color: rgba(0, 0, 0, 0.15);
-          backdrop-filter: blur(3px);
-          -webkit-backdrop-filter: blur(3px);
+
+          /* Negrito e fonte estilosa */
+          font-weight: 700;
+
+          /* Fundo semitransparente + blur de todo o bloco */
+          background-color: rgba(0, 0, 0, 0.18);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border-radius: 6px;
+        }
+
+        .song {
+          font-size: 24px;
           background: linear-gradient(
             125deg,
             rgb({{ songPalette[0][0] }}, {{ songPalette[0][1] }}, {{ songPalette[0][2] }}),
@@ -66,23 +78,11 @@
           background-position: 0% 50%;
           -webkit-text-fill-color: transparent;
           -webkit-background-clip: text;
-          box-decoration-break: clone;
           animation: gradient 15s ease infinite;
         }
 
         .artist {
-          width: 330px;
           font-size: 20px;
-          margin-top: 4px;
-          margin-bottom: 5px;
-          text-align: center;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          /* fundo semitransparente + blur leve atrás do texto */
-          background-color: rgba(0, 0, 0, 0.15);
-          backdrop-filter: blur(3px);
-          -webkit-backdrop-filter: blur(3px);
           background: linear-gradient(
             -125deg,
             rgb({{ songPalette[0][0] }}, {{ songPalette[0][1] }}, {{ songPalette[0][2] }}),
@@ -103,9 +103,10 @@
 
         #bars {
           position: absolute;
-          bottom: 23px;
-          margin: -20px 0 0 0;
-          /* blur dedicado atrás da barrinha de áudio */
+          /* Move a barra um pouco mais pra baixo */
+          bottom: 8px;
+          left: 100px;
+          /* Blur dedicado atrás da barrinha de áudio */
           backdrop-filter: blur(4px);
           -webkit-backdrop-filter: blur(4px);
         }
@@ -125,14 +126,6 @@
           background-size: 200% 100%;
           background-position: 0% 50%;
           animation: gradient 15s ease infinite, pulse 0ms -800ms ease-in infinite alternate;
-        }
-
-        a {
-          text-decoration: none;
-        }
-
-        div {
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
         }
 
         @keyframes gradient {
