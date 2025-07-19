@@ -1,3 +1,9 @@
+<!--
+Alterações principais:
+• Borda sólida trocada por contorno translúcido (rgba(255,255,255,0.15)) + blur para efeito glass.
+• Reinseridos @keyframes gradient e pulse e a diretiva {{ barCSS|safe }} — necessários às animações das barras.
+• Restante preservado (variáveis Jinja intactas; filtro #glass só no wrapper).
+-->
 <svg width="480" height="133" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
     <!-- filtro principal do card -->
@@ -26,7 +32,8 @@
             rgba({{ barPalette[0][0] }}, {{ barPalette[0][1] }}, {{ barPalette[0][2] }}, 0.28) 0%,
             rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.28) 100%
           );
-          border: 1px solid rgba({{ barPalette[3][0] }}, {{ barPalette[3][1] }}, {{ barPalette[3][2] }}, 0.6);
+          /* contorno translúcido + leve blur na borda */
+          border: 1px solid rgba(255,255,255,0.15);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
@@ -70,7 +77,7 @@
 
         .cover { width: 100px; height: 100px; border-radius: 5px; }
 
-        /* ===== Equalizer bars (copiado do primeiro SVG) ===== */
+        /* ===== Equalizer bars ===== */
         #bars {
           position: absolute;
           bottom: 23px;
@@ -99,7 +106,20 @@
         /* fonte global */
         div { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif; }
 
-        /* keyframes e {{ barCSS }} permanecem inalterados */
+        /* ===== Keyframes necessários às animações ===== */
+        @keyframes gradient {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+          0%   { height: 3px;  opacity: 0.35; }
+          100% { height: 15px; opacity: 0.95; }
+        }
+
+        /* CSS gerado dinamicamente para barras individuais */
+        {{ barCSS|safe }}
       </style>
 
       <div class="main">
