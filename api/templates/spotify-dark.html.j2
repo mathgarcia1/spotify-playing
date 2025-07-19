@@ -15,9 +15,6 @@
   <foreignObject width="480" height="133" filter="url(#glass)">
     <div xmlns="http://www.w3.org/1999/xhtml" class="container">
       <style>
-        /* Fonte mais “descolada” e títulos em negrito */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
         .container {
           border-radius: 18px;
           padding: 10px 10px 10px 0;
@@ -30,7 +27,6 @@
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
           backdrop-filter: blur(8px);
           -webkit-backdrop-filter: blur(8px);
-          font-family: 'Poppins', sans-serif;
         }
 
         .main {
@@ -56,12 +52,8 @@
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-
-          /* Negrito e fonte estilosa */
-          font-weight: 700;
-
-          /* Fundo semitransparente + blur de todo o bloco */
-          background-color: rgba(0, 0, 0, 0.18);
+          font-weight: 700;                      /* negrito */
+          background-color: rgba(0, 0, 0, 0.18);  /* bloco borrado atrás */
           backdrop-filter: blur(4px);
           -webkit-backdrop-filter: blur(4px);
           border-radius: 6px;
@@ -103,10 +95,9 @@
 
         #bars {
           position: absolute;
-          /* Move a barra um pouco mais pra baixo */
+          /* barra mais para baixo */
           bottom: 8px;
           left: 100px;
-          /* Blur dedicado atrás da barrinha de áudio */
           backdrop-filter: blur(4px);
           -webkit-backdrop-filter: blur(4px);
         }
